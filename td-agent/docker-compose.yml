@@ -1,17 +1,30 @@
 version: '3'
 
 services:
-  fluentd:
-    build: ./td-agent
-    image: td-agent
-    container_name: td-agent
+  td-agent2:
+    build: ./td-agent2
+    image: td-agent2
+    container_name: td-agent2
+    ports:
+      - "24224:24224"
+      - "24220:24220"
     volumes:
-      - "./td-agent/log:/fluentd/log"
-      - "./td-agent/td-agent.conf:/fluentd/etc/td-agent.conf"
-      - "./nginx/log:/var/log/nginx"
+      - "./td-agent2/td-agent.conf:/etc/td-agent/td-agent.conf"
+      - "./td-agent2/transfer.conf:/etc/td-agent/conf.d/transfer.conf"
     environment:
-      FLUENTD_OPT: "-vv"
-      FLUENTD_CONF: "td-agent.conf"
+      TZ: "Asia/Tokyo"
+
+  td-agent3:
+    build: ./td-agent3
+    image: td-agent3
+    container_name: td-agent3
+    ports:
+      - "24424:24424"
+      - "24420:24420"
+    volumes:
+      - "./td-agent3/td-agent.conf:/etc/td-agent/td-agent.conf"
+      - "./td-agent3/transfer.conf:/etc/td-agent/conf.d/transfer.conf"
+    environment:
       TZ: "Asia/Tokyo"
 
   nginx:

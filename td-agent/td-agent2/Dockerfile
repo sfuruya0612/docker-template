@@ -10,6 +10,6 @@ RUN apt-get -y update \
     && td-agent-gem install fluent-plugin-s3 -v "~> 0.8" \
     && td-agent-gem install fluent-plugin-forest
 
-COPY ["./td-agent.conf", "/etc/td-agent/td-agent.conf"]
+# COPY ["./td-agent.conf", "/etc/td-agent/td-agent.conf"]
 
 CMD ["/usr/sbin/td-agent", "-c",  "/etc/td-agent/td-agent.conf"]
